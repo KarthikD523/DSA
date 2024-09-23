@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+	public static int f(int index,int cur_w,int max_w,ArrayList<Integer> values,ArrayList<Integer> weights,int dp[][]){
+     if(index==values.size())
+	   return 0;
+	   if(dp[index][cur_w]!=-1)
+	     return dp[index][cur_w];
+	int pick=0;
+	if(weights.get(index)+cur_w<=max_w)
+	   pick=values.get(index)+f(index+1,cur_w+weights.get(index),max_w,values,weights,dp);
+
+	int notpick=f(index+1,cur_w,max_w,values,weights,dp);
+
+	return dp[index][cur_w]=Math.max(pick,notpick);
+	}
+	public static int maxProfit(ArrayList<Integer> values, ArrayList<Integer> weights, int n, int w) {
+		// Write your code here.
+
+		int dp[][]=new int[n][w+1];
+		for(int i=0;i<n;i++){
+			for(int j=0;j<w+1;j++){
+				dp[i][j]=-1;
+			}
+			
+		}
+		return f(0,0,w,values,weights,dp);
+	}
+}
