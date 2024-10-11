@@ -1,0 +1,22 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int new_p[]=new int[prices.length-1];
+        int max_v=Integer.MIN_VALUE;
+        for(int i=1;i<prices.length;i++){
+            new_p[i-1]=prices[i]-prices[i-1];
+            max_v=Math.max(max_v,new_p[i-1]);
+        }
+        if(max_v<=0)
+          return 0;
+        int l=prices.length-1;
+        int sum=0;
+        int max=0;
+        for(int i=0;i<l;i++){
+            sum+=new_p[i];
+            if(sum<0)
+            sum=0;
+            max=Math.max(sum,max);
+        }
+        return max;
+    }
+}
