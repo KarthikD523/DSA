@@ -1,0 +1,36 @@
+class Solution {
+    public boolean isCheck(int v,int[][] graph,int[] color){
+     Queue<Integer> q=new LinkedList<>();
+     q.add(v);
+     color[v]=1;
+     while(!q.isEmpty()){
+        int node=q.remove();
+        int c=color[node];
+        for(int it=0;it<graph[node].length;it++){
+            if(color[graph[node][it]]==-1){
+                q.add(graph[node][it]);
+                color[graph[node][it]]=1-c;    //Color adj nodes with opp color of node
+            }
+            else if(color[graph[node][it]]==c)    //Check whether adj nodes have same color and return false
+              return false;
+        }
+       
+     }
+      return true;
+    }
+    public boolean isBipartite(int[][] graph) {
+        int[] color=new int[graph.length];
+        for(int i=0;i<graph.length;i++){
+            color[i]=-1;
+        }
+
+        for(int i=0;i<graph.length;i++){
+            if(color[i]==-1){
+                if(isCheck(i,graph,color)==false)
+                  return false;
+            }
+              
+        }
+        return true;
+    }
+}
