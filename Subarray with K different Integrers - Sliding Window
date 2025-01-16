@@ -1,0 +1,29 @@
+class Solution {
+    public int f(int[] nums,int k){
+        int r=0,l=0,cnt=0;
+        HashMap<Integer,Integer> mpp=new HashMap<>();
+        while(r<nums.length){
+            if(mpp.containsKey(nums[r]))
+             mpp.put(nums[r],mpp.get(nums[r])+1);
+            else
+             mpp.put(nums[r],1);
+            
+            while(mpp.size()>k){
+                int a=mpp.get(nums[l]);
+                if(a-1==0){
+                    mpp.remove(nums[l]);
+                }
+                else
+                mpp.put(nums[l],a-1);
+
+                l++;
+            }
+            cnt+=(r-l+1);
+            r++;
+        } 
+        return cnt;
+    }
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        return f(nums,k)-f(nums,k-1);
+    }
+}
