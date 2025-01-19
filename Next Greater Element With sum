@@ -1,0 +1,58 @@
+
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+       int A[]={91,82,91,97,33,57};
+    //int sum[]={10,10,10,16,6,12}
+    //       res={97,91,97,-1,57,-1};
+    int sum[]=new int[A.length];
+    int n=A.length;
+    for(int i=0;i<n;i++){
+        int num=A[i];
+        int s=0;
+        while(num>0){
+        int d=num%10;
+        s+=d;
+        num=num/10;
+        }
+        sum[i]=s;
+        }
+        int[] res=new int[n];
+        for(int i=0;i<n;i++){
+            System.out.print(sum[i]+" ");
+        }
+        System.out.println();
+    Stack<Integer> st=new Stack<>();
+   
+   for(int i=n-1;i>=0;i--){
+       while(!st.isEmpty() && sum[st.peek()]<sum[i]){
+           st.pop();
+       }
+       if(!st.isEmpty() && sum[st.peek()]==sum[i]){
+           if(A[st.peek()]>A[i]){
+               res[i]=A[st.peek()];
+               st.pop();              //To preserve property of monotonic stack
+           }
+           else{
+               st.pop();
+               res[i]=!st.isEmpty()?A[st.peek()]:-1;
+           }
+           st.push(i);
+           continue;
+       }
+      if(!st.isEmpty()){
+          res[i]=A[st.peek()];
+      }
+      else
+      res[i]=-1;
+      
+      st.push(i);
+      
+   }
+   
+   //System.out.println(res);
+   for(int i=0;i<n;i++)
+    System.out.print(res[i]+" ");
+        
+    }
+}
