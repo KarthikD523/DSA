@@ -1,0 +1,39 @@
+
+
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        
+    int n=4;
+    int q=4;
+    int queries[][]={
+        {1,4},
+        {2,3},
+        {3,4},
+        {3,1}
+    };
+    ArrayList<PriorityQueue<Integer>> adj=new ArrayList<PriorityQueue<Integer>>();
+    for(int i=0;i<n;i++){
+        adj.add(new PriorityQueue<Integer>());
+    }
+    for(int i=0;i<q;i++){
+        int from=queries[i][0];
+        int to=queries[i][1];
+        adj.get(from-1).add(to);
+    }
+    
+    for(int i=0;i<adj.size();i++){
+        System.out.println();
+        if(adj.get(i).size()==0){
+            adj.get(i).add(-1);
+            System.out.print("-1"+" ");
+        }
+        else{
+           for(Integer it:adj.get(i)){
+            System.out.print(it+" ");
+        } 
+        }
+        
+    }
+}
+}
